@@ -20,7 +20,7 @@ Wir wollen uns in diesem Lab primär mit Web UI-Frameworks wie Streamlit befasse
 - Sie können die üblichen **GUI-Widgets** wie Schieberegler, Auswahllisten und Texteingabefelder verwenden, um Benutzereingaben zu erfassen und die Anwendung interaktiv zu gestalten.
 - Sobald Sie Ihre Streamlit-Anwendung erstellt haben, können Sie sie leicht über einen **Webbrowser** nutzen.
 
-Streamlit ist besonders nützlich für Datenwissenschaftler, Ingenieure und Entwickler, die schnell prototypische Datenvisualisierungen oder -analysen erstellen und sie mit anderen teilen möchten. Es bietet eine einfache Möglichkeit, datengesteuerte Anwendungen ohne viel Aufwand in Webentwicklung zu erstellen.
+Streamlit ist besonders nützlich für Datenwissenschaftler, Ingenieure und Entwickler, die schnell prototypische Nutzeroberflchen, Datenvisualisierungen oder -analysen erstellen und sie mit anderen teilen möchten. Es bietet eine einfache Möglichkeit, datengesteuerte Anwendungen ohne viel Aufwand als Web-Anwwendungen bereitzustellen.
 
 ## Einarbeitung in Streamlit
 
@@ -43,29 +43,31 @@ Unter einem "Pickup" verstehen wir dabei, dass ein registrierter Uber-Fahrer ein
 
 Arbeiten Sie dazu bitte folgendes [Tutorial](https://docs.streamlit.io/get-started/tutorials/create-an-app) durch.
 
-## Basecamp Projekt
+## Kubernetes-Basecamp Projekt
 
-Benutzen Sie dieses Projekt bitte als Ausgangspunkt für Ihre erste Aufgabe. Es ist so konfiguriert, dass Sie einfache
+Benutzen Sie dieses Projekt bitte als Ausgangspunkt für Ihr erstes Kubernetes Deployment. Es ist so konfiguriert, dass Sie einfache
 
 - Python-Projekte
 
-mit einer Build-Pipeline deployen können. Dieses Repository sollen Sie als Ausgangspunkt für weitere Labs und Ihr Webtech-Projekt nehmen.
+mit einer Gitlab-Build-Pipeline in Kubernetes deployen können. Dieses Repository können Sie als Ausgangspunkt für weitere Labs und Ihr Webtech-Projekt nehmen.
 
 In den folgenden Schritten lernen Sie:
 
 - Wie Sie mit einem GitLab Projekt umgehen.
 - Wie Sie GitLab CI dazu nutzen können, ein Projekt automatisiert zu bauen und in Kubernetes zu deployen.
 - Wie Sie lokal Änderungen vornehmen und testen zu können.
-- Wie Sie lokale Änderungen mittels VSCode + Git committen und an Gitlab Pushen können, um die Build-Pipeline auch von Ihrem lokalen Rechner aus anstoßen zu können.
+- Wie Sie lokale Änderungen mittels VSCode + Git committen und an Gitlab Pushen können und so die Build-Pipeline anstoßen zu können.
 
 Am Ende sollten Sie Ihre Uber-Datenanalyse aufgebaut und deployt haben. Das ist sicher noch sehr weit von dem zu entwickelnden Projekt entfernt, aber diese Basis-Kenntnisse sollen Ihnen helfen, schnell Ihren persönlichen Einstieg in Ihr WebTech-Projekt zu finden.
 
 ### Aufbau des Projektes
 
-- `app/`: In diesem Ordner befindet sich Ihr Python-Code. **Dies ist der für Sie primär relevante Ordner.**
-- `deploy/`: Hier finden Sie Kubernetes Manifest-Dateien, die für das Deployment erforderlich sind. Inhalte dieses Ordners müssen durch Sie in aller Regel nicht angepasst werden.
-- `README.md`: Diese Datei. Sie ist in [Markdown](https://git.mylab.th-luebeck.de/help/user/markdown.md) formatiert, und wird auf der Hauptseite des Projektes direkt angezeigt. Im Verlaufe Ihres Projekts können Sie hier Dokumentation bzw. ein "Getting Started" Ihres Spieles unterbringen.
-- `.gitlab-ci.yml` und `Dockerfile`: Anweisungen an GitLab, wie Ihr Projekt mittels einer Deployment Pipeline gebaut auf deployed werden soll. Der Build-Prozess wird bei jeder Veränderung (Push/Commit) des Projektes angestoßen. Diese Dateien müssen durch Sie in aller Regel nicht angepasst werden.
+- `app/`: In diesem Ordner befindet sich Ihr Python-Code für ihre Streamlit Uber-App. **Dies ist der für Sie primär relevante Ordner.**
+- `app/Dockerfile`: Anweisungen, um ihre Web-Anwendung als Docker Container zu "containerisieren", um Ihre Anwendund in Kubernetes standardisiert und automatisiert betreiben zu können. Inhalte dieser Datei müssen durch Sie in diesem Lab nicht angepasst werden. Wir werden Container/Docker noch im Detail behandeln.
+- `README.md`: Diese Datei. Sie ist in [Markdown](https://git.mylab.th-luebeck.de/help/user/markdo
+- `deploy/`: Hier finden Sie Kubernetes Manifest-Dateien, die für das Deployment erforderlich sind. Inhalte dieses Ordners müssen durch Sie in diesem Lab nicht angepasst werden. Wir werden Kubernetes noch im Detail behandeln.
+- `README.md`: Diese Datei. Sie ist in [Markdown](https://git.mylab.th-luebeck.de/help/user/markdown.md) formatiert, und wird auf der Hauptseite des Projektes direkt angezeigt. Im Verlaufe Ihres Projekts können Sie hier Dokumentation bzw. ein "Getting Started" Ihrer Anwendung unterbringen.
+- `.gitlab-ci.yml` Anweisungen an GitLab, wie Ihr Projekt mittels einer Deployment Pipeline gebaut auf deployed werden soll. Der Build-Prozess wird bei jeder Veränderung (Push/Commit) des Projektes angestoßen. Diese Dateien müssen durch Sie in aller Regel nicht angepasst werden.
 - `.gitignore`: Hier eingetragene Dateien und Pfade werden von Git, z.B. bei der Ausführung von `git status` oder `git add .`, ignoriert. Sie können diese Datei nach belieben erweitern.
 
 In diesem Repository wurden ferner Umbegungsvariablen (`Variables`) unter [CI/CD-Settings](../../settings/ci_cd) hinterlegt, die von der Deployment-Pipeline dazu genutzt werden, Ihr Projekt in einen [Kubernetes](https://kubernetes.io)-Cluster zu deployen. Dies entspricht üblichen DevOps-Prinzipien.
@@ -129,6 +131,6 @@ Lokales Arbeiten:
 
 > __Pro Tipp:__ Wenn Sie auf Ihrem Entwicklungssystem Docker und das [VSCode Remote Devolpement Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) installieren, ist dieses Repo bereits so für Sie vorbereitet, dass Sie automatisch in einem Container inkl. aller Abhängigkeiten entwickeln können. Bestätigen Sie hierzu in VSCode einfach `Reopen in container` oder `Clone in volume`. Dann startet eine in einem Container gebaute Entwicklungsumgebung *(Achtung: der erste Start kann etwas dauern, da erst ein Conainer gebaut werden muss).*
 
-# 3. Schlussbemerkung
+## Schlussbemerkung
 
 Gegenstand des Moduls Webtechnologie-Projekt sind vor allem Webtechnologien und nur am Rande GitLab, Deployment Pipelines und Kubernetes. Diese Technologien werden zur Automatisierung von Deployments und einen angenehmeren Workflow zunehmend häufiger genutzt, müssen durch Sie aber in diesem Kurs in aller Regel nur minimal angepasst bzw. fortgeschrieben oder ergänzt werden. Wer zu diesen Technologien mehr hören möchte, sei auf die Mastermodule *Cloud-native Programmierung* und *Cloud-native Architekturen* des Masterstudiengangs *Informatik/Verteilte Systeme* verwiesen ;-)
