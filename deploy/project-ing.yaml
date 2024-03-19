@@ -14,7 +14,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: master-app
+            name: main-app
             port:
               number: 80
   tls:
