@@ -26,20 +26,25 @@ Wir wollen uns in diesem Lab primär mit Web UI-Frameworks wie Streamlit befasse
 
 Streamlit ist besonders nützlich für Datenwissenschaftler, Ingenieure und Entwickler, die schnell prototypische Nutzeroberflchen, Datenvisualisierungen oder -analysen erstellen und sie mit anderen teilen möchten. Es bietet eine einfache Möglichkeit, datengesteuerte Anwendungen ohne viel Aufwand als Web-Anwwendungen bereitzustellen.
 
-## Einarbeitung in Streamlit
+## Aufgabe 1: Einarbeitung in Streamlit
 
 - [Installation](https://docs.streamlit.io/get-started/installation) von Streamlit
 - Arbeiten Sie sich in die [Kernkonzepte](https://docs.streamlit.io/get-started/fundamentals/main-concepts) von Streamlit ein
 - Arbeiten Sie sich in die [erweiterte Konzepte](https://docs.streamlit.io/get-started/fundamentals/advanced-concepts) wie Caching und Session State in Streamlit ein
 - Bringen Sie diese Erkenntnisse in einer stichpunktartigen [Zusammenfassung](https://docs.streamlit.io/get-started/fundamentals/summary) auf den Punkt.
 
-Die Inhalte dieser Punkte werden durch den wöchentlichen Test abgeprüft.
+> Bearbeiten Sie dieses Repository als reguläre Aufgabe im Rahmen eines Moduls mit wöchentlichen Moodle-Tests, können die Inhalte dieser Links durch den wöchentlichen Test abgeprüft werden.
 
-## Entwickeln Sie Ihre erste Streamlit-App
+## Aufgabe 2: Entwickeln Sie Ihre erste Streamlit-App
+
+Für diese Aufgabe installieren Sie bitte auf Ihrem Rechner:
+
+- [Python](https://www.python.org/downloads/)
+- [Visual Studio Code](https://code.visualstudio.com) inkl. der [Python Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
 [Uber](https://www.uber.com) ist ein multinationales Technologieunternehmen, das ursprünglich im Jahr 2009 gegründet wurde und seinen Hauptsitz in San Francisco, Kalifornien, hat. Das Unternehmen ist vor allem für seine Ride-Sharing-Plattform und seine On-Demand-Fahrdienste bekannt.
 
-Auf Basis dieser [Daten von Abholungen](https://s3-us-west-2.amazonaws.com/streamlit-demo-data/uber-raw-data-sep14.csv.gz) sollen Sie nun im Lab eine **containerisierte** Streamlit-Anwendung erstellen, die Uber "Pickups" auf einer Karte von New York City visualisiert.
+Auf Basis dieser [Daten von Abholungen](https://s3-us-west-2.amazonaws.com/streamlit-demo-data/uber-raw-data-sep14.csv.gz) sollen Sie nun im Lab eine Streamlit-Anwendung erstellen, die Uber "Pickups" auf einer Karte von New York City visualisiert.
 
 Unter einem "Pickup" verstehen wir dabei, dass ein registrierter Uber-Fahrer einen Passagier an einem bestimmten Ort abholt und zu seinem gewünschten Ziel fährt.
 
@@ -47,9 +52,9 @@ Unter einem "Pickup" verstehen wir dabei, dass ein registrierter Uber-Fahrer ein
 
 Arbeiten Sie dazu bitte folgendes [Tutorial](https://docs.streamlit.io/get-started/tutorials/create-an-app) durch.
 
-## Kubernetes-Basecamp Projekt
+## Aufgabe 3: Nutzen Sie dieses Repository als Kubernetes-Basecamp Projekt
 
-Benutzen Sie dieses Projekt bitte als Ausgangspunkt für Ihr erstes Kubernetes Deployment. Es ist so konfiguriert, dass Sie einfache
+Sie können dieses Projekt als Ausgangspunkt für Ihr Kubernetes Deployment nutzen. Es ist so konfiguriert, dass Sie einfache
 
 - Python-Projekte
 
@@ -64,14 +69,14 @@ In den folgenden Schritten lernen Sie:
 
 Am Ende sollten Sie Ihre Uber-Datenanalyse aufgebaut und deployt haben. Das ist sicher noch sehr weit von dem zu entwickelnden Projekt entfernt, aber diese Basis-Kenntnisse sollen Ihnen helfen, schnell Ihren persönlichen Einstieg in Ihr WebTech-Projekt zu finden.
 
-### Aufbau des Projektes
+### Schritt 3.1: Aufbau des Projektes
 
 - `app/`: In diesem Ordner befindet sich Ihr Python-Code für ihre Streamlit Uber-App. **Dies ist der für Sie primär relevante Ordner.**
 - `app/Dockerfile`: Anweisungen, um ihre Web-Anwendung als Docker Container zu "containerisieren", um Ihre Anwendund in Kubernetes standardisiert und automatisiert betreiben zu können. Inhalte dieser Datei müssen durch Sie in diesem Lab nicht angepasst werden. Wir werden Container/Docker noch im Detail behandeln.
 - `README.md`: Diese Datei. Sie ist in [Markdown](https://git.mylab.th-luebeck.de/help/user/markdo
 - `deploy/`: Hier finden Sie Kubernetes Manifest-Dateien, die für das Deployment erforderlich sind. Inhalte dieses Ordners müssen durch Sie in diesem Lab nicht angepasst werden. Wir werden Kubernetes noch im Detail behandeln.
 - `README.md`: Diese Datei. Sie ist in [Markdown](https://git.mylab.th-luebeck.de/help/user/markdown.md) formatiert, und wird auf der Hauptseite des Projektes direkt angezeigt. Im Verlaufe Ihres Projekts können Sie hier Dokumentation bzw. ein "Getting Started" Ihrer Anwendung unterbringen.
-- `.gitlab-ci.yml` Anweisungen an GitLab, wie Ihr Projekt mittels einer Deployment Pipeline gebaut auf deployed werden soll. Der Build-Prozess wird bei jeder Veränderung (Push/Commit) des Projektes angestoßen. Diese Dateien müssen durch Sie in aller Regel nicht angepasst werden.
+- `.gitlab-ci.yml` Anweisungen an GitLab, wie Ihr Projekt mittels einer Deployment Pipeline gebaut und ausgebracht werden soll. Der Build-Prozess wird bei jeder Veränderung (Push/Commit) des Projektes angestoßen. Diese Dateien müssen durch Sie in aller Regel nicht angepasst werden (es kann sein, dass Sie in Folgeprojekten an diese Pipeline heranmüssen).
 - `.gitignore`: Hier eingetragene Dateien und Pfade werden von Git, z.B. bei der Ausführung von `git status` oder `git add .`, ignoriert. Sie können diese Datei nach belieben erweitern.
 
 In diesem Repository wurden ferner Umbegungsvariablen (`Variables`) unter [CI/CD-Settings](../../settings/ci_cd) hinterlegt, die von der Deployment-Pipeline dazu genutzt werden, Ihr Projekt in einen [Kubernetes](https://kubernetes.io)-Cluster zu deployen. Dies entspricht üblichen DevOps-Prinzipien.
@@ -88,7 +93,7 @@ SIE-+                         +-> | Deployment Pipeline | --> | K8s Cluster | <-
 
 Passen Sie daher bitte weder Umgebungsvariablen noch die Deployment-Pipeline an. Es sei denn, Sie wissen genau was Sie tun!
 
-### Installation von Lens
+### Schritt 3.2: Installation von Lens
 
 Um einen Einblick in das Deployment auf dem Cluster nehmen zu können, installieren Sie hierzu bitte **lokal** auf Ihrem eigenen Rechner die Kubernetes-IDE [Lens](https://k8slens.dev/). Wenn Sie sich nicht für Lens registrieren möchten, können Sie auch [OpenLens](https://github.com/lensapp/lens) installieren. Dies kann allerdings komplizierter sein, wenn Sie nicht bereits Paketsysteme wie `homebrew` (Mac OS X, Linux) oder `chocolatey`, `scoop` oder `winget` (Windows) installiert haben. Dieses [Repo](https://github.com/MuhammedKalkan/OpenLens) hilft bei der OpenLens Installation.
 
@@ -99,22 +104,31 @@ Starten Sie Lens und fügen Sie der IDE eine erforderliche `kubeconfig`-Datei hi
 **Diese persönlichen Zugangsdaten zum Kubernetes Cluster sind vertraulich, nur für diesen Kurs zu nutzen und durch Sie in keinem Falle weiterzugeben.**
 
 1. Kopieren Sie sich in GitLab ([CI/CD Settings](../../settings/ci_cd)) den Inhalt der CI/CD-Variable `KUBECONFIG` in Ihre Zwischenablage (`CTRL-C/CMD-C`).
-2. Starten Sie Lens: `File -> Add Cluster` Kopieren Sie nun den Inhalt aus der Zwischenablage mittels `CTRL-V/CMD-V`hinein.
+2. Starten Sie Lens: `File -> Add Cluster` Kopieren Sie nun den Inhalt aus der Zwischenablage mittels `CTRL-V/CMD-V` hinein.
 3. Klicken Sie anschließen auf `Add cluster`.
 
 Sie sollten dann (nach kurzer Synchronisation) Ihren Namespace in dem für Sie bereitgestellten K8s-Cluster sehen. In diesen Namespace deployed die Pipeline Ihre Applikation.
 
-### Arbeiten Sie lokal
+### Schritt 3.3: Arbeiten Sie in der Gitlab Web-IDE
+
+1. Klicken Sie nun in Ihrem Gitlab-Repository auf `Edit -> WebIDE`.
+2. Fügen Sie nun in der Datei `app/uber_pickups.py` Ihre Lösung aus Aufgabe 2 ein.
+3. Ändern Sie nun in der Datei `.gitlab-ci.yml` die Umgebungsvariable `DEPLOY` von `no` auf `yes` (case sensitive!). Damit aktivieren Sie die automatische Deployment-Pipeline. Jeder Push ins Repository wird ab dann die Deployment Pipeline automatisch anstoßen.
+4. Klicken Sie dann in der linken Seitenleiste ihrer WebIDE auf den Git-Reiter (dort sollten die beiden in den Schritten vorher geänderten Dateien als geändert erscheinen).
+5. Klicken Sie dann auf `Commit to main`, um Ihre Änderungen ins Repository zu übertragen.
+
+
+### Schritt 3.4: Arbeiten Sie lokal
 
 Sie haben gemerkt, dass die Build-Pipeline immer recht viel Zeit in Anspruch nimmt. Es ist daher für die tägliche Projektarbeit sinnvoll, lokal auf Ihrem eigenen Rechner arbeiten zu können und einzelne Anpassungen vornehmen zu können und diese direkt lokal austesten zu können. Erst wenn Ihre Änderungen lokal funktionieren, sollten Sie dann in das Repository pushen und so die oben gezeigte Build-Pipeline anstoßen.
 
 Für Ihr Webtech Projekt wird grundsätzlich folgendes Setting empfohlen.
 
 - Installieren Sie [git](https://git-scm.com/downloads)
-- Installieren Sie das [Dart SDK](https://dart.dev/get-dart)
+- Installieren Sie das [Python](https://www.python.org/downloads/)
 - Installieren Sie die IDE [Visual Studio Code](https://code.visualstudio.com) inkl. der [Python Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 - Installieren Sie auch das Visual Studie Code [Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) (optional, nur falls Sie mit Dev Containern in VSCode arbeiten wollen)
-- Installieren Sie [Lens](https://k8slens.dev) (für diesen Schritt nicht erforderlich)
+- Installieren Sie [Lens](https://k8slens.dev/) *(auch wenn dies in diesem Schritt nicht erforderlich ist)*
 
 Lokales Arbeiten:
 
@@ -127,14 +141,12 @@ Lokales Arbeiten:
    streamlit run uber_pickups.py
    ```
 4. Dies startet einen Build Daemon (genau derselbe wie in der Build-Pipeline). Dieser überwacht das Verzeichnis und alle in diesem Verzeichnis befindlichen Dateien und startet unter [http://127.0.0.1:8080](http://127.0.0.1:8080) oder [http://localhost:8080](http://localhost:8080) einen Webserver unter dem Ihre Webapp lokal abgerufen und getestet werden kann. Öffnen Sie die URL mit Ihrem Browser, um es auszuprobieren (es kann abhängig von ihren Systemeinstellungen sein, dass nur einer der beiden Links funktioniert).
-5. Probieren Sie es aus. Fügen Sie bspw. der `index.html` Datei folgende Überschrift hinzu `<h1>Dart Chess</h1>` und speichern Sie die Datei. Beobachten Sie das Terminal. Die Änderung wird erkannt, eine Rekompilierung angestoßen. Anschließend können Sie unter [http://127.0.0.1:8080](http://127.0.0.1:8080) oder [http://localhost:8080](http://localhost:8080) die Änderung lokal sehen.
+5. Probieren Sie es aus. Ändern Sie bspw. in der `app/uber_pickups.py` Datei den Titel in `My NYC Taxi App` und speichern Sie die Datei. Beobachten Sie das Terminal. Die Änderung wird erkannt, eine Rekompilierung angestoßen. Anschließend können Sie unter [http://127.0.0.1:8080](http://127.0.0.1:8080) oder [http://localhost:8080](http://localhost:8080) die Änderung lokal sehen.
 6. Klicken Sie in VSCode nun auf den GIT-Reiter (Quellcode-Verwaltung). Dort finden Sie unter `Änderungen` alle Änderungen, die Sie zum Stand gemacht haben, den Sie im Schritt 1 herunter geladen haben.
 7. Übernehmen Sie nun mittels `+` alle Änderungen als `gestagte Änderungen`. Damit merken Sie diese für einen Commit in GIT vor. Geben Sie nun eine Commit-Nachricht ein, z.B. `Mein erster Commit`. Klicken Sie auf das "Häkchen". Dies committed alle Änderung in die lokale Version ihres Repositories.
-8. Um diese lokalen Änderungen auch an den Gitlab Server zu übertragen, müssen sie diese "pushen". Klicken Sie hierzu in VSCode in der unteren Statusleiste neben `master` auf das Synchronisationsfeld. Dort sollten 0 Commits zum Pull und 1 Commits zum Push stehen. Durch Klicken der Synchronisationsfeldes können Sie diese Änderungen nun an das zentrale Repository übertragen. Dieser Vorgang stößt die Build-Pipeline an und Sie können Ihre lokalen Änderungen zentral im Kubernetes Cluster bereitstellen.
+8. Um diese lokalen Änderungen auch an den Gitlab Server zu übertragen, müssen sie diese "pushen". Klicken Sie hierzu in VSCode in der unteren Statusleiste neben `main` auf das Synchronisationsfeld. Dort sollten 0 Commits zum Pull und 1 Commits zum Push stehen. Durch Klicken der Synchronisationsfeldes können Sie diese Änderungen nun an das zentrale Repository übertragen. Dieser Vorgang stößt die Build-Pipeline an und Sie können Ihre lokalen Änderungen zentral im Kubernetes Cluster bereitstellen.
 9. Vollziehen Sie gerne in Lens und in der [CI/CD Pipeline](-/pipelines) nach, dass Ihre Änderung erfolgreich gepushed wurde und die Build-Pipeline anläuft.
 
 > __Pro Tipp:__ Wenn Sie auf Ihrem Entwicklungssystem Docker und das [VSCode Remote Devolpement Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) installieren, ist dieses Repo bereits so für Sie vorbereitet, dass Sie automatisch in einem Container inkl. aller Abhängigkeiten entwickeln können. Bestätigen Sie hierzu in VSCode einfach `Reopen in container` oder `Clone in volume`. Dann startet eine in einem Container gebaute Entwicklungsumgebung *(Achtung: der erste Start kann etwas dauern, da erst ein Conainer gebaut werden muss).*
 
-## Schlussbemerkung
 
-Gegenstand des Moduls Webtechnologie-Projekt sind vor allem Webtechnologien und nur am Rande GitLab, Deployment Pipelines und Kubernetes. Diese Technologien werden zur Automatisierung von Deployments und einen angenehmeren Workflow zunehmend häufiger genutzt, müssen durch Sie aber in diesem Kurs in aller Regel nur minimal angepasst bzw. fortgeschrieben oder ergänzt werden. Wer zu diesen Technologien mehr hören möchte, sei auf die Mastermodule *Cloud-native Programmierung* und *Cloud-native Architekturen* des Masterstudiengangs *Informatik/Verteilte Systeme* verwiesen ;-)
