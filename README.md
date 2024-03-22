@@ -118,7 +118,7 @@ Sie sollten dann (nach kurzer Synchronisation) Ihren Namespace in dem für Sie b
 5. Klicken Sie dann auf `Commit to main`, um Ihre Änderungen ins Repository zu übertragen.
 6. Vollziehen Sie gerne in Lens und in der [CI/CD Pipeline](-/pipelines) nach, dass Ihre Änderung erfolgreich gepushed wurde und die Build-Pipeline anläuft und durchläuft. Dies kann ein wenig dauern - es passiert jetzt einiges im Hintergrund: Container-Bau, Einrichtung ihres Namespaces, Übertragung des Deployments in den Cluster und Start des Deployments
 
-### Schritt 3.4: Greifen Sie auf die Anwendung im Cluster zu:
+### Schritt 3.4: Greifen Sie auf die Anwendung im Cluster zu
 
 1. Klicken Sie in Lens auf `Workload -> Pods`. Sie sollten dort einen laufenden Pod (ihre Anwendung sehen).
 2. Selektieren Sie diesen Pod. Auf der rechten Seite sollte ein Reiter mit jeder Menge Details zu diesem Pod aufgehen.
@@ -126,8 +126,17 @@ Sie sollten dann (nach kurzer Synchronisation) Ihren Namespace in dem für Sie b
 
 Anders als in Aufgabe 2 läuft diese nun nicht lokal auf ihrem Rechner sonder in einem Kubernetes Cluster, kann allerdings nur über ein Port-Forwarding von Ihrem Rechner erreicht werden. Wenn Sie möchten, können Sie diese Anwendung auch im WWW bereitstellen. Hierzu ist die Deployment Pipeline mit einem manuell anstoßbarem Schritt versehen, der einen sogenannten Ingress einrichtet. Ein Kubernetes Ingress ermöglicht die Einrichtung von HTTP(S)-Routen von außen in den Cluster zu Services. Dadurch können Anwendungen ohne Port Forwarding von außen erreicht werden.
 
-to be continued
+> Achtung: Die folgenden Schritte exponieren Ihre Anwendung für die weltweite Öffentlichkeit. Wenn Sie dies nicht wollen überspringen Sie bitte die folgenden Schritte:
 
+1. Öffnen Sie die letzte [CI/CD Pipeline](-/pipelines). In der Deploy Stage finden Sie einen Job `ìngress`, der manuell getriggered werden muss.
+2. Klicken Sie hier auf das `▶`-Symbol.
+3. Sie können in Lens verfolgen, wie der Ingress eingerichtet wird. Wenn Sie auf `Network -> Ingress` klicken, sollten Sie eine Ressource namens `project-ingress` sehen. Diese sollte folgendes Format haben: `https://uber-{{ PROJECT_ID }}.edu.k8s.th-luebeck.dev/`
+
+Ihre Projekt-ID finden Sie in Ihrem Repository in der Gitlab Weboberfläche ganz rechts unter den drei Punkten. In Lens sollte die URL aber auch unter Rules angezeigt werden. Sie können dort einfach drauf klicken. Wollen Sie weltweite Freigabe beenden, können Sie den Ingress in Lens auch einfach löschen. Oder in einem Lens-Terminal auch mittels der Kommandozeile:
+
+```bash
+kubectl delete ing/project-ingress
+```
 
 
 ### Schritt 3.4: Arbeiten Sie lokal
