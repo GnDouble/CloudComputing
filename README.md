@@ -52,13 +52,11 @@ Unter einem "Pickup" verstehen wir dabei, dass ein registrierter Uber-Fahrer ein
 
 Arbeiten Sie dazu bitte folgendes [Tutorial](https://docs.streamlit.io/get-started/tutorials/create-an-app) durch.
 
+> Bearbeiten Sie dieses Repository als reguläre Aufgabe im Rahmen eines Moduls mit wöchentlichen Moodle-Tests, können die Inhalte dieses Tutorials durch den wöchentlichen Test abgeprüft werden.
+
 ## Aufgabe 3: Nutzen Sie dieses Repository als Kubernetes-Basecamp Projekt
 
-Sie können dieses Projekt als Ausgangspunkt für Ihr Kubernetes Deployment nutzen. Es ist so konfiguriert, dass Sie einfache
-
-- Python-Projekte
-
-mit einer Gitlab-Build-Pipeline in Kubernetes deployen können. Dieses Repository können Sie als Ausgangspunkt für weitere Labs und Ihr Webtech-Projekt nehmen.
+Sie können dieses Projekt auch als Ausgangspunkt für Kubernetes Deployments nutzen. Es ist so konfiguriert, dass Sie einfache Python-Projekte mit einer Gitlab-Build-Pipeline in Kubernetes deployen können. Dieses Repository können Sie daher auch als Ausgangspunkt für weitere Labs und Ihr Webtech-Projekt nehmen.
 
 In den folgenden Schritten lernen Sie:
 
@@ -71,11 +69,10 @@ Am Ende sollten Sie Ihre Uber-Datenanalyse aufgebaut und deployt haben. Das ist 
 
 ### Schritt 3.1: Aufbau des Projektes
 
+- `README.md`: Diese Datei. Sie ist in [Markdown](https://git.mylab.th-luebeck.de/help/user/markdown.md) formatiert, und wird auf der Hauptseite des Projektes direkt angezeigt. Im Verlaufe Ihres Projekts können Sie hier Dokumentation bzw. ein "Getting Started" Ihrer Anwendung unterbringen.
 - `app/`: In diesem Ordner befindet sich Ihr Python-Code für ihre Streamlit Uber-App. **Dies ist der für Sie primär relevante Ordner.**
 - `app/Dockerfile`: Anweisungen, um ihre Web-Anwendung als Docker Container zu "containerisieren", um Ihre Anwendund in Kubernetes standardisiert und automatisiert betreiben zu können. Inhalte dieser Datei müssen durch Sie in diesem Lab nicht angepasst werden. Wir werden Container/Docker noch im Detail behandeln.
-- `README.md`: Diese Datei. Sie ist in [Markdown](https://git.mylab.th-luebeck.de/help/user/markdo
 - `deploy/`: Hier finden Sie Kubernetes Manifest-Dateien, die für das Deployment erforderlich sind. Inhalte dieses Ordners müssen durch Sie in diesem Lab nicht angepasst werden. Wir werden Kubernetes noch im Detail behandeln.
-- `README.md`: Diese Datei. Sie ist in [Markdown](https://git.mylab.th-luebeck.de/help/user/markdown.md) formatiert, und wird auf der Hauptseite des Projektes direkt angezeigt. Im Verlaufe Ihres Projekts können Sie hier Dokumentation bzw. ein "Getting Started" Ihrer Anwendung unterbringen.
 - `.gitlab-ci.yml` Anweisungen an GitLab, wie Ihr Projekt mittels einer Deployment Pipeline gebaut und ausgebracht werden soll. Der Build-Prozess wird bei jeder Veränderung (Push/Commit) des Projektes angestoßen. Diese Dateien müssen durch Sie in aller Regel nicht angepasst werden (es kann sein, dass Sie in Folgeprojekten an diese Pipeline heranmüssen).
 - `.gitignore`: Hier eingetragene Dateien und Pfade werden von Git, z.B. bei der Ausführung von `git status` oder `git add .`, ignoriert. Sie können diese Datei nach belieben erweitern.
 
@@ -91,11 +88,11 @@ SIE-+                         +-> | Deployment Pipeline | --> | K8s Cluster | <-
         +----------+
 ```
 
-Passen Sie daher bitte weder Umgebungsvariablen noch die Deployment-Pipeline an. Es sei denn, Sie wissen genau was Sie tun!
+Passen Sie daher bitte weder Umgebungsvariablen noch die Deployment-Pipeline an (es sei denn, Änderungen werden explizit angegeben). Oder Sie wissen genau was Sie tun!
 
 ### Schritt 3.2: Installation von Lens
 
-Um einen Einblick in das Deployment auf dem Cluster nehmen zu können, installieren Sie hierzu bitte **lokal** auf Ihrem eigenen Rechner die Kubernetes-IDE [Lens](https://k8slens.dev/). Wenn Sie sich nicht für Lens registrieren möchten, können Sie auch [OpenLens](https://github.com/lensapp/lens) installieren. Dies kann allerdings komplizierter sein, wenn Sie nicht bereits Paketsysteme wie `homebrew` (Mac OS X, Linux) oder `chocolatey`, `scoop` oder `winget` (Windows) installiert haben. Dieses [Repo](https://github.com/MuhammedKalkan/OpenLens) hilft bei der OpenLens Installation.
+Um einen Einblick in das Deployment auf dem Cluster nehmen zu können, installieren Sie hierzu bitte **lokal** auf Ihrem eigenen Rechner die Kubernetes-IDE [Lens](https://k8slens.dev/). Wenn Sie sich nicht für Lens registrieren möchten, können Sie auch [OpenLens](https://github.com/lensapp/lens) installieren. Dies kann allerdings komplizierter sein, wenn Sie nicht bereits Paketsysteme wie `homebrew` (Mac OS X, Linux) oder `chocolatey`, `scoop` oder `winget` (Windows) installiert haben. Dieses [Repo](https://github.com/MuhammedKalkan/OpenLens) hilft bei der OpenLens Installation. OpenLens bietet auch nicht den kompletten Funktionsumfang auf der Bedienoberfläche an (bspw. Port-Forwarding, Einsichtnahme in Logs usw.).
 
 ![Lens](https://cloudnativenow.com/wp-content/uploads/2020/11/Mirantis-visualize1.png)
 
@@ -112,11 +109,54 @@ Sie sollten dann (nach kurzer Synchronisation) Ihren Namespace in dem für Sie b
 ### Schritt 3.3: Arbeiten Sie in der Gitlab Web-IDE
 
 1. Klicken Sie nun in Ihrem Gitlab-Repository auf `Edit -> WebIDE`.
-2. Fügen Sie nun in der Datei `app/uber_pickups.py` Ihre Lösung aus Aufgabe 2 ein.
+2. Fügen Sie nun in der Datei `app/uber_pickups.py` Ihre Lösung aus Aufgabe 2 ein. Wenn Sie dies nicht hinbekommen haben, finden Sie am Ende einen kleinen Cheat.
 3. Ändern Sie nun in der Datei `.gitlab-ci.yml` die Umgebungsvariable `DEPLOY` von `no` auf `yes` (case sensitive!). Damit aktivieren Sie die automatische Deployment-Pipeline. Jeder Push ins Repository wird ab dann die Deployment Pipeline automatisch anstoßen.
 4. Klicken Sie dann in der linken Seitenleiste ihrer WebIDE auf den Git-Reiter (dort sollten die beiden in den Schritten vorher geänderten Dateien als geändert erscheinen).
 5. Klicken Sie dann auf `Commit to main`, um Ihre Änderungen ins Repository zu übertragen.
 6. Vollziehen Sie gerne in Lens und in der [CI/CD Pipeline](-/pipelines) nach, dass Ihre Änderung erfolgreich gepushed wurde und die Build-Pipeline anläuft und durchläuft. Dies kann ein wenig dauern - es passiert jetzt einiges im Hintergrund: Container-Bau, Einrichtung ihres Namespaces, Übertragung des Deployments in den Cluster und Start des Deployments
+
+<details>
+<summary>Cheat</summary>
+
+```python
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+st.title('Uber pickups in NYC')
+
+DATE_COLUMN = 'date/time'
+DATA_URL = 'https://s3-us-west-2.amazonaws.com/streamlit-demo-data/uber-raw-data-sep14.csv.gz'
+
+@st.cache_data
+def load_data(nrows):
+    data = pd.read_csv(DATA_URL, nrows=nrows)
+    lowercase = lambda x: str(x).lower()
+    data.rename(lowercase, axis='columns', inplace=True)
+    data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
+    return data
+
+data_load_state = st.text('Loading data...')
+data = load_data(100000)
+data_load_state.text("Done! (using st.cache_data)")
+
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(data)
+
+st.subheader('Number of pickups by hour')
+hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
+st.bar_chart(hist_values)
+
+# Some number in the range 0-23
+hour_to_filter = st.slider('hour', 0, 23, 17)
+filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
+
+st.subheader('Map of all pickups at %s:00' % hour_to_filter)
+st.map(filtered_data)
+```
+
+</details>
 
 ### Schritt 3.4: Greifen Sie auf die Anwendung im Cluster zu
 
@@ -137,7 +177,6 @@ Ihre Projekt-ID finden Sie in Ihrem Repository in der Gitlab Weboberfläche ganz
 ```bash
 kubectl delete ing/project-ingress
 ```
-
 
 ### Schritt 3.4: Arbeiten Sie lokal
 
