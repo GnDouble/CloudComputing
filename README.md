@@ -116,7 +116,19 @@ Sie sollten dann (nach kurzer Synchronisation) Ihren Namespace in dem für Sie b
 3. Ändern Sie nun in der Datei `.gitlab-ci.yml` die Umgebungsvariable `DEPLOY` von `no` auf `yes` (case sensitive!). Damit aktivieren Sie die automatische Deployment-Pipeline. Jeder Push ins Repository wird ab dann die Deployment Pipeline automatisch anstoßen.
 4. Klicken Sie dann in der linken Seitenleiste ihrer WebIDE auf den Git-Reiter (dort sollten die beiden in den Schritten vorher geänderten Dateien als geändert erscheinen).
 5. Klicken Sie dann auf `Commit to main`, um Ihre Änderungen ins Repository zu übertragen.
-6. Vollziehen Sie gerne in Lens und in der [CI/CD Pipeline](-/pipelines) nach, dass Ihre Änderung erfolgreich gepushed wurde und die Build-Pipeline anläuft.
+6. Vollziehen Sie gerne in Lens und in der [CI/CD Pipeline](-/pipelines) nach, dass Ihre Änderung erfolgreich gepushed wurde und die Build-Pipeline anläuft und durchläuft. Dies kann ein wenig dauern - es passiert jetzt einiges im Hintergrund: Container-Bau, Einrichtung ihres Namespaces, Übertragung des Deployments in den Cluster und Start des Deployments
+
+### Schritt 3.4: Greifen Sie auf die Anwendung im Cluster zu:
+
+1. Klicken Sie in Lens auf `Workload -> Pods`. Sie sollten dort einen laufenden Pod (ihre Anwendung sehen).
+2. Selektieren Sie diesen Pod. Auf der rechten Seite sollte ein Reiter mit jeder Menge Details zu diesem Pod aufgehen.
+3. Scrollen Sie ein wenig herunter (bis zum Eintrag Ports im Container `app`). Dort finden Sie in Lens einen Button `forward`. Klicken Sie darauf. In dem dann aufgehenden Fenster klicken Sie auf `Start`. Dann sollte ein Browser aufgehen und Ihre Anwendung zu sehen sein.
+
+Anders als in Aufgabe 2 läuft diese nun nicht lokal auf ihrem Rechner sonder in einem Kubernetes Cluster, kann allerdings nur über ein Port-Forwarding von Ihrem Rechner erreicht werden. Wenn Sie möchten, können Sie diese Anwendung auch im WWW bereitstellen. Hierzu ist die Deployment Pipeline mit einem manuell anstoßbarem Schritt versehen, der einen sogenannten Ingress einrichtet. Ein Kubernetes Ingress ermöglicht die Einrichtung von HTTP(S)-Routen von außen in den Cluster zu Services. Dadurch können Anwendungen ohne Port Forwarding von außen erreicht werden.
+
+to be continued
+
+
 
 ### Schritt 3.4: Arbeiten Sie lokal
 
