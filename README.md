@@ -48,11 +48,14 @@ Auf Basis dieser [Daten von Abholungen](https://s3-us-west-2.amazonaws.com/strea
 
 Unter einem "Pickup" verstehen wir dabei, dass ein registrierter Uber-Fahrer einen Passagier an einem bestimmten Ort abholt und zu seinem gewünschten Ziel fährt.
 
+Arbeiten Sie dazu bitte folgendes [Tutorial](https://docs.streamlit.io/get-started/tutorials/create-an-app) durch. Ihre Anwendung sollte irgendwann wie folgt aussehen.
+
 ![Visualization](visualization.png)
 
-Arbeiten Sie dazu bitte folgendes [Tutorial](https://docs.streamlit.io/get-started/tutorials/create-an-app) durch.
-
 > Bearbeiten Sie dieses Repository als reguläre Aufgabe im Rahmen eines Moduls mit wöchentlichen Moodle-Tests, können die Inhalte dieses Tutorials durch den wöchentlichen Test abgeprüft werden.
+
+
+
 
 ## Aufgabe 3: Nutzen Sie dieses Repository als Kubernetes-Basecamp Projekt
 
@@ -116,7 +119,7 @@ Sie sollten dann (nach kurzer Synchronisation) Ihren Namespace in dem für Sie b
 6. Vollziehen Sie gerne in Lens und in der [CI/CD Pipeline](-/pipelines) nach, dass Ihre Änderung erfolgreich gepushed wurde und die Build-Pipeline anläuft und durchläuft. Dies kann ein wenig dauern - es passiert jetzt einiges im Hintergrund: Container-Bau, Einrichtung ihres Namespaces, Übertragung des Deployments in den Cluster und Start des Deployments
 
 <details>
-<summary>Cheat</summary>
+<summary>Lösung</summary>
 
 ```python
 import streamlit as st
