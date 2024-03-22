@@ -1,3 +1,5 @@
+[TOC]
+
 # Web GUI
 
 Eine Web User Interface (Web UI) ist die Schnittstelle, die es Benutzern ermöglicht, mit einer Webanwendung oder Website zu interagieren. Sie besteht aus verschiedenen Elementen wie Schaltflächen, Textfeldern, Menüs und anderen grafischen Komponenten, die Benutzereingaben akzeptieren und Informationen darstellen.
