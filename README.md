@@ -77,7 +77,6 @@ Am Ende sollten Sie Ihre Uber-Datenanalyse aufgebaut und deployt haben. Das ist 
 - `app/Dockerfile`: Anweisungen, um ihre Web-Anwendung als Docker Container zu "containerisieren", um Ihre Anwendund in Kubernetes standardisiert und automatisiert betreiben zu können. Inhalte dieser Datei müssen durch Sie in diesem Lab nicht angepasst werden. Wir werden Container/Docker noch im Detail behandeln.
 - `deploy/`: Hier finden Sie Kubernetes Manifest-Dateien, die für das Deployment erforderlich sind. Inhalte dieses Ordners müssen durch Sie in diesem Lab nicht angepasst werden. Wir werden Kubernetes noch im Detail behandeln.
 - `.gitlab-ci.yml` Anweisungen an GitLab, wie Ihr Projekt mittels einer Deployment Pipeline gebaut und ausgebracht werden soll. Der Build-Prozess wird bei jeder Veränderung (Push/Commit) des Projektes angestoßen. Diese Dateien müssen in diesem Lab durch Sie in aller Regel nicht angepasst werden (es kann sein, dass Sie in Folgeprojekten an diese Pipeline heran müssen). Wir werden Deployment Pipelines noch im Detail behandeln.
-- `.gitignore`: Hier eingetragene Dateien und Pfade werden von Git, z.B. bei der Ausführung von `git status` oder `git add .`, ignoriert. Sie können diese Datei nach belieben erweitern.
 
 In diesem Repository wurden ferner Umbegungsvariablen (`Variables`) unter [CI/CD-Settings](../../settings/ci_cd) hinterlegt, die von der Deployment-Pipeline dazu genutzt werden, Ihr Projekt in einen [Kubernetes](https://kubernetes.io)-Cluster zu deployen. Dies entspricht üblichen DevOps-Prinzipien.
 
