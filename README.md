@@ -180,7 +180,7 @@ Ihre Projekt-ID finden Sie in Ihrem Repository in der Gitlab Weboberfläche ganz
 kubectl delete ing/project-ingress
 ```
 
-### Schritt 3.4: Arbeiten Sie lokal
+### Schritt 3.5: Arbeiten Sie lokal
 
 Sie haben gemerkt, dass die Build-Pipeline immer recht viel Zeit in Anspruch nimmt. Es ist daher für die tägliche Projektarbeit sinnvoll, lokal auf Ihrem eigenen Rechner arbeiten zu können und einzelne Anpassungen vornehmen zu können und diese direkt lokal austesten zu können. Erst wenn Ihre Änderungen lokal funktionieren, sollten Sie dann in das Repository pushen und so die oben gezeigte Build-Pipeline anstoßen.
 
