@@ -6,6 +6,7 @@ ADD requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-CMD ["streamlit", "run", "uber_pickups.py"]
+CMD ["streamlit", "run", "app.py"]
 
 ADD *.py ./
+ADD *.png ./
