@@ -200,10 +200,10 @@ Lokales Arbeiten:
    ```Bash
    cd app/
    pip install -r requirements.txt
-   streamlit run uber_pickups.py
+   streamlit run app.py
    ```
 4. Dies startet einen Build Daemon (genau derselbe wie in der Build-Pipeline). Dieser überwacht das Verzeichnis und alle in diesem Verzeichnis befindlichen Dateien und startet unter [http://127.0.0.1:8080](http://127.0.0.1:8080) oder [http://localhost:8080](http://localhost:8080) einen Webserver unter dem Ihre Webapp lokal abgerufen und getestet werden kann. Öffnen Sie die URL mit Ihrem Browser, um es auszuprobieren (es kann abhängig von ihren Systemeinstellungen sein, dass nur einer der beiden Links funktioniert).
-5. Probieren Sie es aus. Ändern Sie bspw. in der `app/uber_pickups.py` Datei den Titel in `My NYC Taxi App` und speichern Sie die Datei. Beobachten Sie das Terminal. Die Änderung wird erkannt, eine Rekompilierung angestoßen. Anschließend können Sie unter [http://127.0.0.1:8080](http://127.0.0.1:8080) oder [http://localhost:8080](http://localhost:8080) die Änderung lokal sehen.
+5. Probieren Sie es aus. Ändern Sie bspw. in der `app/app.py` Datei den Titel in `My NYC Taxi App` und speichern Sie die Datei. Beobachten Sie das Terminal. Die Änderung wird erkannt, eine Rekompilierung angestoßen. Anschließend können Sie unter [http://127.0.0.1:8080](http://127.0.0.1:8080) oder [http://localhost:8080](http://localhost:8080) die Änderung lokal sehen.
 6. Klicken Sie in VSCode nun auf den GIT-Reiter (Quellcode-Verwaltung). Dort finden Sie unter `Änderungen` alle Änderungen, die Sie zum Stand gemacht haben, den Sie im Schritt 1 herunter geladen haben.
 7. Übernehmen Sie nun mittels `+` alle Änderungen als `gestagte Änderungen`. Damit merken Sie diese für einen Commit in GIT vor. Geben Sie nun eine Commit-Nachricht ein, z.B. `Mein erster Commit`. Klicken Sie auf das "Häkchen". Dies committed alle Änderung in die lokale Version ihres Repositories.
 8. Um diese lokalen Änderungen auch an den Gitlab Server zu übertragen, müssen sie diese "pushen". Klicken Sie hierzu in VSCode in der unteren Statusleiste neben `main` auf das Synchronisationsfeld. Dort sollten 0 Commits zum Pull und 1 Commits zum Push stehen. Durch Klicken der Synchronisationsfeldes können Sie diese Änderungen nun an das zentrale Repository übertragen. Dieser Vorgang stößt die Build-Pipeline an und Sie können Ihre lokalen Änderungen zentral im Kubernetes Cluster bereitstellen.
