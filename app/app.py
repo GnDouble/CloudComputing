@@ -1,35 +1,76 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-#comment
-st.title('Uber pickups in NYC')
+from openai import OpenAI
+import wikipedia as wp
 
-DATE_COLUMN = 'date/time'
-DATA_URL = 'https://s3-us-west-2.amazonaws.com/streamlit-demo-data/uber-raw-data-sep14.csv.gz'
+st.header("leafLover 🌱", divider="green")
 
-@st.cache_data
-def load_data(nrows):
-    data = pd.read_csv(DATA_URL, nrows=nrows)
-    lowercase = lambda x: str(x).lower()
-    data.rename(lowercase, axis='columns', inplace=True)
-    data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-    return data
 
-data_load_state = st.text('Loading data...')
-data = load_data(100000)
-data_load_state.text("Done! (using st.cache_data)")
 
-if st.checkbox('Show raw data'):
-    st.subheader('Raw data')
-    st.write(data)
+#search_item = wp.summary(f"" + query)
+#print(search_item)
 
-st.subheader('Number of pickups by hour')
-hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
-st.bar_chart(hist_values)
 
-# Some number in the range 0-23
-hour_to_filter = st.slider('hour', 0, 23, 17)
-filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
 
-st.subheader('Map of all pickups at %s:00' % hour_to_filter)
-st.map(filtered_data)
+client = OpenAI(
+    base_url="https://chat-large.llm.mylab.th-luebeck.dev/v1",
+    api_key="-"
+)
+
+completion =""
+
+
+if 'plants' not in st.session_state:
+    st.session_state.plants = ["Email", "Home phone", "Mobile phone"]
+
+with st.container():
+    col1, col2, col3 = st.columns([10,2,4])
+
+    with col1:
+        query = st.text_area(label="Prompt:")
+   
+   
+
+    with col2:
+        st.write("")
+        st.write("")
+        st.write("")
+        button = st.button(":red[Submit]")
+        if button:
+            completion = client.chat.completions.create(
+        model="tgi",
+        messages=[
+            {"role": "system", "content": f"Du bist ein Pflanzendoc und ein Pflanzenratgeber, deine Information bekommst du von" },
+            {"role": "user", "content": f"{query}\nAntwort:"}
+        ],
+        stream=True,
+        max_tokens=1024
+    )
+
+    with col3:
+        option = st.selectbox(
+            "Deine Pflanzen: ",
+            st.session_state.plants
+        )
+        st.write("Auswahl:", option)
+        
+        
+        new_plant = st.text_input("Your plants")
+        if st.button("Add new plant"):
+            
+            if new_plant:
+                st.session_state.plants.append(new_plant)
+                st.success(f"Plant '{new_plant}' added!")
+    
+       
+       
+
+# iterate and print stream
+    st.write_stream(m.choices[0].delta.content for m in completion if not m.choices[0].finish_reason)
+
+
+
+
+
+
