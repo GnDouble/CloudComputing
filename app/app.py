@@ -103,7 +103,7 @@ completion = ""
 
 # Initialize session state for plants and medical history if not already set
 if 'plants' not in st.session_state:
-    st.session_state.plants = ["Email", "Home phone", "Mobile phone"]
+    st.session_state.plants = ["empty"] # get Plants from db
 if 'medical_history' not in st.session_state:
     st.session_state.medical_history = pd.DataFrame(columns=["Date", "Plant", "Symptoms", "Watering routine", "Treatment"])
 
@@ -111,12 +111,16 @@ if 'medical_history' not in st.session_state:
 if not st.session_state.logged_in:
     col1, col2 = st.columns([9, 4])
     with col2:
-        if st.button(":green[Login]"):
-            st.session_state.show_login_form = True
-            st.session_state.show_register_form = False
-        if st.button("Register"):
-            st.session_state.show_register_form = True
-            st.session_state.show_login_form = False
+        col3,col4 = st.columns([5,5])
+        with col3:
+            if st.button(":green[Login]"):
+                st.session_state.show_login_form = True
+                st.session_state.show_register_form = False
+        with col4:
+
+            if st.button("Register"):
+                st.session_state.show_register_form = True
+                st.session_state.show_login_form = False
 else:
     col1, col2 = st.columns([9, 4])
     with col2:
@@ -179,12 +183,36 @@ if st.session_state.logged_in:
                 st.session_state.plants.append(new_plant)
                 st.success(f"Pflanze '{new_plant}' hinzugefügt!")
 
+else:
+    # Step 1: Get crop name
+        crop_name = st.text_input(label="Enter the name of the crop:")
+
+        if crop_name:
+            plant_info = getPlant(crop_name)
+            #st.write("Information about the crop:", plant_info)
+
+            query = st.text_area(label="Describe the problem with the crop:")
+
+            if query:
+                if st.button("Submit"):
+                    with st.spinner("Processing your request..."):
+                        completion = client.chat.completions.create(
+                            model="tgi",
+                            messages=[
+                                {"role": "system", "content": f"Du bist ein Pflanzendoc und ein Pflanzenratgeber, deine Information bekommst du von {plant_info}"},
+                                {"role": "user", "content": f"{query}\nAntwort:"}
+                            ],
+                            stream=True,
+                            max_tokens=1024
+                        )
+                        st.write_stream(m.choices[0].delta.content for m in completion if not m.choices[0].finish_reason)
+    
 watering_times = ["1","2","2+"]
 
 # Medical history form
 st.subheader("Medical History")
 with st.form(key='medical_history_form'):
-    plant = st.selectbox("Plant", st.session_state.plants)
+    plant = st.write(f"Plant: :green[{crop_name}]", )
     symptoms = st.text_input("Symptoms")
     watering = st.selectbox("Watering routine", watering_times)
     treatment = st.text_input("Treatment")
