@@ -104,9 +104,9 @@ client = OpenAI(
 )
 
 
-if 'plants' not in st.session_state:
+if "plants" not in st.session_state:
     st.session_state.plants = ["empty"]  
-if 'medical_history' not in st.session_state:
+if "medical_history" not in st.session_state:
     st.session_state.medical_history = pd.DataFrame(columns=["Date", "Plant", "Symptoms", "Watering routine", "Treatment"])
 
 
@@ -159,22 +159,23 @@ with col1:
 
         if not st.session_state.form_submitted:  # Only show form if not submitted
             st.subheader("Medical History")
-            with st.form(key='medical_history_form'):
+            with st.form(key="medical_history_form"):
                 symptoms = st.text_input("Symptoms")
-                watering = st.selectbox("Watering routine", ["1", "2", "2+"])
+                watering_frequency = st.selectbox("Watering frequency", ["Daily", "Weekly"])
+                watering_detail = st.text_input(f"How often?")
                 treatment = st.text_input("Treatment")
-                submit_button = st.form_submit_button(label='Add')
+                submit_button = st.form_submit_button(label="Add")
 
                 if submit_button:
                     new_entry = {
                         "Date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         "Plant": crop_name,
                         "Symptoms": symptoms,
-                        "Watering routine": watering,
+                        "Watering routine": f"{watering_detail} times per {watering_frequency.lower()}",
                         "Treatment": treatment,
                     }
                     st.session_state.medical_history = st.session_state.medical_history._append(new_entry, ignore_index=True)
-                    st.success(f"Medical history entry for '{crop_name}' added!")
+                    st.success(f"Medical history entry for {crop_name} added!")
                     st.session_state.form_submitted = True  # Set form as submitted
 
 
@@ -205,6 +206,6 @@ with col2:
         if st.session_state.logged_in:
             if new_plant:
                 st.session_state.plants.append(new_plant)
-                st.success(f"Plant '{new_plant}' added!")
+                st.success(f"Plant {new_plant} added!")
         else:
             st.error("You must be logged in to save plants.")
