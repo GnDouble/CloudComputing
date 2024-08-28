@@ -197,6 +197,7 @@ with col1:
                     st.session_state.watering_frequency = watering_frequency
                     st.session_state.watering_detail = watering_detail
                     st.session_state.treatment = treatment
+                    st.session_state.plant_info = plant_info
                     st.session_state.form_submitted = True
 
                     new_entry = {
@@ -229,13 +230,20 @@ with col1:
                         model="tgi",
                         messages=[
                             {"role": "system", "content": f"You are a plant doctor and advisor. Your information is sourced from: {plant_info}."},
-                            {"role": "user", "content": f"{query}\nSymptoms: {st.session_state.symptoms}\nWatering routine: {st.session_state.watering_frequency} {st.session_state.watering_detail}\nTreatment: {st.session_state.treatment}\nAnswer:"}
+                            {"role": "user", "content": f"{query}\n general info: {st.session_state.plant_info}  \nSymptoms: {st.session_state.symptoms}\nWatering routine: {st.session_state.watering_frequency} {st.session_state.watering_detail}\nTreatment: {st.session_state.treatment} \nAnswer:"}
                         ],
                         stream=True,
                         max_tokens=1024
                     )
                     st.write_stream(
                         m.choices[0].delta.content for m in completion if not m.choices[0].finish_reason)
+                    # Reset state after submission
+                st.session_state.query = ""
+                st.session_state.form_submitted = False
+                st.session_state.symptoms = ""
+                st.session_state.watering_frequency = ""
+                st.session_state.watering_detail = ""
+                st.session_state.treatment = ""
 
 with col2:
     st.subheader("Plants")
