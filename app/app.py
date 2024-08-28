@@ -10,6 +10,8 @@ from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Database initialization
+
+
 def init_db():
     conn = sqlite3.connect("users.db")
     conn.execute("""
@@ -19,33 +21,48 @@ def init_db():
             hashed_password TEXT NOT NULL
         )
     """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS user_plants (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            plant_name TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (id)
+        )
+    """)
     conn.commit()
     conn.close()
+
 
 init_db()
 
 # User management functions
+
+
 def get_user(email: str):
     conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT email, hashed_password FROM users WHERE email = ?", (email,))
+    cursor.execute(
+        "SELECT email, hashed_password FROM users WHERE email = ?", (email,))
     row = cursor.fetchone()
     conn.close()
     if row:
         return {"email": row[0], "hashed_password": row[1]}
     return None
 
+
 def create_user(email: str, password: str):
     conn = sqlite3.connect("users.db")
     hashed_password = pwd_context.hash(password)
     try:
-        conn.execute("INSERT INTO users (email, hashed_password) VALUES (?, ?)", (email, hashed_password))
+        conn.execute(
+            "INSERT INTO users (email, hashed_password) VALUES (?, ?)", (email, hashed_password))
         conn.commit()
     except sqlite3.IntegrityError:
         conn.close()
         return False
     conn.close()
     return True
+
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
@@ -63,6 +80,7 @@ if "show_register_form" not in st.session_state:
 if "form_submitted" not in st.session_state:
     st.session_state.form_submitted = False
 
+
 def login(email, password):
     user = get_user(email)
     if user and verify_password(password, user["hashed_password"]):
@@ -74,12 +92,14 @@ def login(email, password):
     else:
         st.error("Invalid email or password")
 
+
 def register(email, password):
     if create_user(email, password):
         st.session_state.show_register_form = False
         st.success("Registered successfully!")
     else:
         st.error("Email already registered")
+
 
 def logout():
     st.session_state.logged_in = False
@@ -90,6 +110,8 @@ def logout():
 st.header("leafLover 🌱", divider="green")
 
 # Function to get plant information from Wikipedia
+
+
 def getPlant(plant):
     try:
         summary = wp.summary(plant)
@@ -105,9 +127,10 @@ client = OpenAI(
 
 
 if "plants" not in st.session_state:
-    st.session_state.plants = ["empty"]  
+    st.session_state.plants = ["empty"]
 if "medical_history" not in st.session_state:
-    st.session_state.medical_history = pd.DataFrame(columns=["Date", "Plant", "Symptoms", "Watering routine", "Treatment"])
+    st.session_state.medical_history = pd.DataFrame(
+        columns=["Date", "Plant", "Symptoms", "Watering routine", "Treatment"])
 
 
 if not st.session_state.logged_in:
@@ -139,16 +162,18 @@ if st.session_state.show_login_form:
 if st.session_state.show_register_form:
     st.subheader("Register")
     reg_email = st.text_input("Register Email", key="register_email")
-    reg_password = st.text_input("Register Password", type="password", key="register_password")
+    reg_password = st.text_input(
+        "Register Password", type="password", key="register_password")
     if st.button("Submit Registration"):
         register(reg_email, reg_password)
 
 
 col1, col2 = st.columns([4, 2])
 
-symptoms= ""
-watering= ""
-treatment= ""
+# symptoms= ""
+# watering_detail= 0
+# treatment= ""
+# watering_frequency = ""
 
 with col1:
     crop_name = st.text_input(label="Enter the name of the crop:")
@@ -161,40 +186,56 @@ with col1:
             st.subheader("Medical History")
             with st.form(key="medical_history_form"):
                 symptoms = st.text_input("Symptoms")
-                watering_frequency = st.selectbox("Watering frequency", ["Daily", "Weekly"])
+                watering_frequency = st.selectbox(
+                    "Watering frequency", ["Daily", "Weekly"])
                 watering_detail = st.text_input(f"How often?")
                 treatment = st.text_input("Treatment")
                 submit_button = st.form_submit_button(label="Add")
 
                 if submit_button:
+                    st.session_state.symptoms = symptoms
+                    st.session_state.watering_frequency = watering_frequency
+                    st.session_state.watering_detail = watering_detail
+                    st.session_state.treatment = treatment
+                    st.session_state.form_submitted = True
+
                     new_entry = {
-                        "Date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         "Plant": crop_name,
                         "Symptoms": symptoms,
-                        "Watering routine": f"{watering_detail} times per {watering_frequency.lower()}",
+                        "Watering routine": f"{watering_detail} times per {watering_frequency}",
                         "Treatment": treatment,
                     }
-                    st.session_state.medical_history = st.session_state.medical_history._append(new_entry, ignore_index=True)
+                    st.session_state.medical_history = st.session_state.medical_history._append(
+                        new_entry, ignore_index=True)
                     st.success(f"Medical history entry for {crop_name} added!")
-                    st.session_state.form_submitted = True  # Set form as submitted
+                    # st.session_state.form_submitted = True  # Set form as submitted
 
+    if "symptoms" not in st.session_state:
+        st.session_state.symptoms = ""
+    if "watering_frequency" not in st.session_state:
+        st.session_state.watering_frequency = ""
+    if "watering_detail" not in st.session_state:
+        st.session_state.watering_detail = ""
+    if "treatment" not in st.session_state:
+        st.session_state.treatment = ""
 
-        if st.session_state.form_submitted:
-            query = st.text_area(label="Describe the problem with the crop:")    
+    if st.session_state.form_submitted:
+        query = st.text_area(label="Describe the problem with the crop:")
 
-            if query:
-                if st.button("Submit"):
-                    with st.spinner("Processing your request..."):
-                        completion = client.chat.completions.create(
-                            model="tgi",
-                            messages=[
-                                {"role": "system", "content": f"You are a plant doctor and advisor. Your information is sourced from: {plant_info}."},
-                                {"role": "user", "content": f"{query}\nSymptoms: {symptoms}\nWatering routine: {watering}\nTreatment: {treatment}\nAnswer:"}
-                            ],
-                            stream=True,
-                            max_tokens=1024
-                        )
-                        st.write_stream(m.choices[0].delta.content for m in completion if not m.choices[0].finish_reason)
+        if query:
+            if st.button("Submit"):
+                with st.spinner("Processing your request..."):
+                    completion = client.chat.completions.create(
+                        model="tgi",
+                        messages=[
+                            {"role": "system", "content": f"You are a plant doctor and advisor. Your information is sourced from: {plant_info}."},
+                            {"role": "user", "content": f"{query}\nSymptoms: {st.session_state.symptoms}\nWatering routine: {st.session_state.watering_frequency} {st.session_state.watering_detail}\nTreatment: {st.session_state.treatment}\nAnswer:"}
+                        ],
+                        stream=True,
+                        max_tokens=1024
+                    )
+                    st.write_stream(
+                        m.choices[0].delta.content for m in completion if not m.choices[0].finish_reason)
 
 with col2:
     st.subheader("Plants")
