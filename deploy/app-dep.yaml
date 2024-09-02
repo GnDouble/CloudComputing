@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: {{ CI_COMMIT_REF_NAME }}-app
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: {{ CI_COMMIT_REF_NAME }}-app

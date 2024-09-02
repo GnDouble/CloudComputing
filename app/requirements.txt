@@ -1,7 +1,5 @@
 streamlit
 pandas
-numpy
 openai
-wikipedia
-fastapi
-uvicorn
+wikipedia-api
+passlib
