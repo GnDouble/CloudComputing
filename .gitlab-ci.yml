@@ -46,6 +46,5 @@ ingress:
   stage: deploy
   rules:
     - if: '$DEPLOY == "yes"'
-  when: manual
   script:
   - HOST=uber-$CI_PROJECT_ID.$DOMAIN mo deploy/project-ing.yaml | kubectl apply -f -
