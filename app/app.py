@@ -5,7 +5,7 @@ import wikipedia as wp
 
 # Initialize OpenAI client
 client = OpenAI(
-    base_url="https://llama-31-70b.models.th-luebeck.dev/v1",
+    base_url="https://chat-mts.models.th-luebeck.dev/v1",
     api_key="-"
 )
 
