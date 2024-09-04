@@ -1,6 +1,6 @@
 ## **leafLover🌱**
 
-**leafLover🌱** ist eine Web-App, die dir hilft, deine Pflanzen besser zu pflegen. Die App bietet dir eine einfache Möglichkeit, Pflegedaten zu erfassen und basierend auf diesen Daten und Informationen aus Wikipedia eine personalisierte Beratung zu erhalten.leafLover🌱 macht es leicht, sich um deine Pflanzen zu kümmern.
+**leafLover🌱** ist eine Web-App, die dir hilft, deine Pflanzen besser zu pflegen. Die App bietet dir eine einfache Möglichkeit, Pflegedaten zu erfassen und basierend auf diesen Daten und Informationen aus Wikipedia eine personalisierte Beratung zu erhalten. leafLover🌱 macht es leicht, sich um deine Pflanzen zu kümmern.
 
 # Funktionen
 
