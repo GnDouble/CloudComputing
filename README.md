@@ -1,11 +1,9 @@
 ## **leafLover🌱**
 
-**leafLover🌱** ist eine Webanwendung, welche Planzenbesitzern hilf ihre Planzen optimal zu plegen.
-Die Anwendung kombiniert eine benutzerfreundliche Oberfläche zur Erfassung von Pflegedaten mit einer KI-gestützten Beratung, die auf Informationen aus Wikipedia basiert. Ziel dieser App ist es, Pflanzenfreunden aller Erfahrungsstufen eine einfache Möglichkeit zu bieten, ihre Pflanzen besser zu verstehen und zu pflegen.
+**leafLover🌱** ist eine Web-App, die dir hilft, deine Pflanzen besser zu pflegen. Die App bietet dir eine einfache Möglichkeit, Pflegedaten zu erfassen und basierend auf diesen Daten und Informationen aus Wikipedia eine personalisierte Beratung zu erhalten. leafLover🌱 macht es leicht, sich um deine Pflanzen zu kümmern.
 
 # Funktionen
 
-Pflanzeninformationen: Automatische Abrufung und Anzeige von relevanten Informationen über die eingegebene Pflanze direkt aus Wikipedia.
 Medizinische Historie: Möglichkeit zur Dokumentation von Symptomen, Bewässerungsgewohnheiten und durchgeführten Behandlungen für jede Pflanze.
 KI-gestützte Beratung: Personalisierte Empfehlungen und Problemlösungen basierend auf den eingegebenen Pflegedaten und Wikipedia-Informationen.
 Intuitive Benutzeroberfläche: Eine einfache und übersichtliche Weboberfläche, die eine unkomplizierte Nutzung ermöglicht.
