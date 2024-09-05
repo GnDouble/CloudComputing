@@ -1,5 +1,6 @@
 streamlit
 pandas
 openai
-wikipedia
+beautifulsoup4
+requests
 

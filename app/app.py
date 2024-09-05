@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 from openai import OpenAI
-import wikipedia as wp
+import requests as rq
+from bs4 import BeautifulSoup
 
 # Initialize OpenAI client
 client = OpenAI(
@@ -9,13 +10,21 @@ client = OpenAI(
     api_key="-"
 )
 
-# Function to get plant information from Wikipedia
-def getPlant(plant):
+# Function to get a summarized version of the Wikipedia page
+def get_wikipedia_content(page_title, max_paragraphs=6):
     try:
-        summary = wp.summary(plant)
-        return summary
+        url = f"https://en.wikipedia.org/wiki/{page_title}"
+        response = rq.get(url)
+        
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser') 
+            paragraphs = soup.find_all('p')
+            content = "\n".join([para.get_text() for para in paragraphs[:max_paragraphs] if para.get_text().strip()])
+            return content
+        else:
+            return f"Error: Unable to retrieve content (Status code: {response.status_code})"
     except Exception as e:
-        return "No information found."
+        return f"An error occurred: {str(e)}"
 
 st.header("leafLover 🌱")
 
@@ -61,7 +70,7 @@ if crop_name != st.session_state.current_crop_name:
 
 if crop_name:
     # Get plant information from Wikipedia
-    st.session_state.plant_info = getPlant(crop_name)
+    st.session_state.plant_info = get_wikipedia_content(crop_name)
 
     # Show form only if it has not been submitted yet
     if not st.session_state.form_submitted:
@@ -115,3 +124,13 @@ if crop_name:
                     # After query is done show a button to start a new process
                     if st.button("Start over"):
                         reset_process()
+
+
+
+
+
+
+
+
+
+
