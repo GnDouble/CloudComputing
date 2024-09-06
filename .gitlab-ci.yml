@@ -48,3 +48,13 @@ ingress:
     - if: '$DEPLOY == "yes"'
   script:
   - HOST=uber-$CI_PROJECT_ID.$DOMAIN mo deploy/project-ing.yaml | kubectl apply -f -
+
+destroy_resources:
+  stage: destroy
+  when: manual
+  rules:
+    - if: '$DEPLOY == "yes"'
+  script:
+    - kubectl delete -f deploy/app-dep.yaml || true
+    - kubectl delete -f deploy/app-svc.yaml || true
+    - kubectl delete ingress uber-$CI_PROJECT_ID.$DOMAIN || true
