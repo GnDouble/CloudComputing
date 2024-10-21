@@ -1,19 +1,25 @@
-## **leafLover🌱**
+# **leafLover🌱**
 
-**leafLover🌱** ist eine Web-App, die dir hilft, deine Pflanzen besser zu pflegen. Die App bietet dir eine einfache Möglichkeit, Pflegedaten zu erfassen und basierend auf diesen Daten und Informationen aus Wikipedia eine personalisierte Beratung zu erhalten. leafLover🌱 macht es leicht, sich um deine Pflanzen zu kümmern.
+**leafLover🌱** is a web application designed to help you take better care of your plants by logging care data and receiving personalized advice. The app leverages AI and Wikipedia-sourced information to provide tailored recommendations for each plant.
 
-# Funktionen
+## Features
 
-Medizinische Historie: Möglichkeit zur Dokumentation von Symptomen, Bewässerungsgewohnheiten und durchgeführten Behandlungen für jede Pflanze.
-KI-gestützte Beratung: Personalisierte Empfehlungen und Problemlösungen basierend auf den eingegebenen Pflegedaten und Wikipedia-Informationen.
-Intuitive Benutzeroberfläche: Eine einfache und übersichtliche Weboberfläche, die eine unkomplizierte Nutzung ermöglicht.
+- **Plant Health History:** Track symptoms, watering schedules, and treatments for every plant in your collection.
+- **AI-Powered Advice:** Receive personalized recommendations and solutions based on the care data you provide.
+- **Simple User Interface:** A clean and intuitive web interface for easy navigation and usability.
 
-# Nutzung der Anwendung
+---
 
-1. **Pflanzennamen eingeben:** Geben Sie den Namen der Pflanze ein, über die Sie Informationen und Beratung wünschen.
+## Project Goals
 
-2. **Pflegedaten erfassen:** Füllen Sie das Formular aus, indem Sie Symptome, die Häufigkeit der Bewässerung und bereits durchgeführte „Behandlungen” angeben.
- 
-3. **Beratung anfordern:** Beschreiben Sie das aktuelle Problem Ihrer Pflanze, um eine individuelle Empfehlung von der KI zu erhalten.
+- **Containerization with Docker:** Gain experience using Docker for containerizing the application to streamline deployment, testing, and scaling.
+- **AI Integration:** Implement and enhance AI-driven solutions to provide personalized plant care recommendations.
+- **Scalable Architecture:** Design the app in a way that can be easily scaled to handle more users and complex data interactions.
+- **CI/CD with Docker:** Use Docker in conjunction with continuous integration and deployment pipelines to automate testing and deployment processes.
+- **Web Development Best Practices:** Apply frontend and backend best practices to deliver a smooth and efficient user experience.
 
+---
 
+## Migration Note
+
+This project was migrated from GitLab, and the current CI/CD pipeline is not yet fully updated to reflect the changes. Please note that some pipeline steps may need adjustment before automatic builds and deployments are fully functional in the new environment.
